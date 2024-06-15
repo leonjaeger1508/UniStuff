@@ -31,7 +31,7 @@ public class JTreeGUI extends JFrame {
 	private JPanel buttonPanel;
 	
 	public JTreeGUI() {
-		super("JTreeGUI");//Test Github
+		super("JTreeGUI");//Test Github2
 		
 		root = new FlexibleTreeNode2<>(new MyGuifiableObject("Root"));
 		treeModel = new DefaultTreeModel(root);

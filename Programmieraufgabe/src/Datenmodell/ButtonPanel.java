@@ -81,7 +81,7 @@ public class ButtonPanel extends JPanel {
 	
 	th.start();
 		
-		// TODO hier die tests starten
+		// TODO hier die tests starten test
 		
 	}
 }

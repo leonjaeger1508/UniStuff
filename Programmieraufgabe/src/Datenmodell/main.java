@@ -1,13 +1,12 @@
-package Datenmodell;
-
+package Datenmodell; 
 import Tests.ExceptionTests;
 import Tests.FailingTests;
 import Tests.IgnoredTests;
 import Tests.SuccessfulTests;
 
-public class mainframe {
+public class main {
 
-	public mainframe() {
+	public static void main(String[] args) {
 		Class<?>[] testSetClasses = {
 				ExceptionTests.class,
 				FailingTests.class,
@@ -16,7 +15,6 @@ public class mainframe {
 				SuccessfulTests.class,
 		};
 		
-		//TODO: Liste an TreeModel geben, Baum darauf aufbauen und den dann ans JTreeGUI geben
+		TreeModel tree = new TreeModel(testSetClasses);
 	}
-	
 }

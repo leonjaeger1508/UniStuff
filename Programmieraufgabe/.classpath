@@ -9,5 +9,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="C:/Users/leonj/iCloudDrive/Desktop/Wirtschaftsinformatik/2.Semester/PM/Praktikum/Uebungsblatt01/turban.utils.jar.v0_2/turban.utils.jar"/>
 	<classpathentry kind="lib" path="C:/Users/leonj/iCloudDrive/Desktop/Wirtschaftsinformatik/2.Semester/PM/Praktikum/Uebungsblatt01/turban.utils.jar.v0_2/log4j-1.2.17.jar"/>
+	<classpathentry kind="src" path="/PMT"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

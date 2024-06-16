@@ -1,7 +1,10 @@
 package Tests;
 
 import org.junit.Test;
+
 import static org.junit.Assert.*;
+
+import java.awt.Image;
 
 public class FailingTests {
 
@@ -22,4 +25,5 @@ public class FailingTests {
         boolean isFalse = false;
         assertTrue(isFalse);  // Dieser Test schlägt fehl
     }
+
 }

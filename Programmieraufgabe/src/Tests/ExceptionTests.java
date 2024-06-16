@@ -2,7 +2,12 @@ package Tests;
 
 import static org.junit.Assert.assertEquals;
 
+import java.awt.Image;
+
+import org.junit.BeforeClass;
 import org.junit.Test;
+
+
 
 public class ExceptionTests {
 
@@ -11,6 +16,7 @@ public class ExceptionTests {
         int result = 1 / 0;
     }
 
+    @BeforeClass
     @Test
     public void testNoException() {
         int result = 1 / 1;

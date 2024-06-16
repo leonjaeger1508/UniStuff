@@ -25,7 +25,6 @@ public class ButtonPanel extends JPanel {
 		
 		
 		_startButton = new JButton("Start");
-		_pauseButton = new JButton("Pause");
 		_stopButton = new JButton("Stop");
 		_progressBar = new JProgressBar();
 		
@@ -39,9 +38,7 @@ public class ButtonPanel extends JPanel {
 			start();
 		});
 		
-		_pauseButton.addActionListener((ActionEvent) ->{
-			pause();
-		});
+		
 		
 		_stopButton.addActionListener((ActionEvent) ->{
 			stop();
@@ -52,10 +49,6 @@ public class ButtonPanel extends JPanel {
 	private void stop() {
 		// TODO Auto-generated method stub
 		
-	}
-
-	private void pause() {
-		//je nach Zustand -> Tests weitermachen oder nicht
 	}
 
 	private void start() {
@@ -81,7 +74,7 @@ public class ButtonPanel extends JPanel {
 	
 	th.start();
 		
-		// TODO hier die tests starten test sas
+		// TODO hier die tests starten test
 		
 	}
 }

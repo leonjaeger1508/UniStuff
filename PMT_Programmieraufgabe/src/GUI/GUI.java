@@ -137,7 +137,6 @@ public class GUI extends JFrame {
 		_testRan = true;
 		_progressBar.setValue(0);
 		_startTimestamp = new Timestamp(System.currentTimeMillis());
-		System.out.println(_startTimestamp);
 		TestRunner testRunner = new TestRunner();
 		Thread thread = new Thread(() -> {
 			try {

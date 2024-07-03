@@ -196,6 +196,8 @@ public class GUI extends JFrame {
 				nodeClass.add(nodeMethod);
 			}
 		}
+		
+		
 
 		_treeModel = new DefaultTreeModel(_tnRoot);
 		_jTree = new JTree(_treeModel);
@@ -210,6 +212,8 @@ public class GUI extends JFrame {
 
 		JScrollPane scrollJTree = new JScrollPane(_jTree);
 		_treePanel.add(scrollJTree, BorderLayout.CENTER);
+		
+		//TODO ->
 	}
 
 	private void addPanelsToContentPane() {

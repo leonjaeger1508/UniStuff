@@ -82,8 +82,8 @@ public class GUI extends JFrame {
 		});
 		_buttonPanel.add(startButton);
 
-		JRadioButton test = new JRadioButton("TestKlasse anzeigen");
-		_buttonPanel.add(test);
+	
+		
 		_progressBar = new JProgressBar(0, _testSet.getTestClasses().size());
 		_progressBar.setStringPainted(true);
 		_buttonPanel.add(_progressBar);

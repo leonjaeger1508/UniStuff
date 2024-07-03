@@ -29,7 +29,6 @@ public class DBExtractor {
 
 	    String start = startTimestamp.toString();
 	    String end = endTimestamp.toString();
-	    //TODO -> TimeStamp in DB speichern, in DB einrichten!
 	    int testedClasses = 0;
 	    int testedMethods = 0;
 	    int passedClasses = 0;

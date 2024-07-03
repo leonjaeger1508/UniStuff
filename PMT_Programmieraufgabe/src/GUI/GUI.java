@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTree;
@@ -52,7 +53,7 @@ public class GUI extends JFrame {
 	private Timestamp _endTimestamp;
 	private boolean _testRan;
 
-	public GUI(String strTitel, TestSet testSetToPerform) {
+	public GUI(String strTitel, TestSet testSetToPerform) throws UserMsgException {
 
 		super(strTitel);
 		_testSet = testSetToPerform;
@@ -71,6 +72,7 @@ public class GUI extends JFrame {
 
 		JButton startButton = new JButton("Start");
 		startButton.addActionListener(ae -> {
+			_errorTextArea.setText("");
 			start();
 		});
 		JButton stopButton = new JButton("Stop");
@@ -80,6 +82,8 @@ public class GUI extends JFrame {
 		});
 		_buttonPanel.add(startButton);
 
+		JRadioButton test = new JRadioButton("TestKlasse anzeigen");
+		_buttonPanel.add(test);
 		_progressBar = new JProgressBar(0, _testSet.getTestClasses().size());
 		_progressBar.setStringPainted(true);
 		_buttonPanel.add(_progressBar);
@@ -95,12 +99,24 @@ public class GUI extends JFrame {
 			}
 		});
 		
+		JButton toXMLButton = new JButton("In XML-Datei speichern");
+		toXMLButton.addActionListener(ae ->{
+			try {
+				saveToXML();
+			} catch (UserMsgException e) {}
+		});
+		
 		_buttonPanel.add(toDBButton);
 		addPanelsToContentPane();
 
 		setSize(700, 700);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
+	}
+
+	private void saveToXML() throws UserMsgException {
+		
+		
 	}
 
 	private void saveToDB() throws UserMsgException {
@@ -143,21 +159,21 @@ public class GUI extends JFrame {
 				_stopTesting = false;
 				_errorTextArea.setText("Fehlermeldungen: \n");
 				for (TestClass cl : _testSet.getTestClasses()) {
+					updateNodes();
 					if (!_stopTesting) {
-						_endTimestamp = testRunner.runTests1(cl);
+						_endTimestamp = testRunner.runTests2(cl);
 						updateProgressBar();
-
 					}
 				}
+				_errorTextArea.setText("");
 				updateErrorTextArea();
-
 			} catch (Throwable th) {
 				ErrorHandler.logException(th, false, TestRunner.class, "Fehler in start-Methode");
 			}
 		});
 		thread.start();
+
 	}
-	
 	
 
 	private void updateErrorTextArea() {
@@ -173,15 +189,11 @@ public class GUI extends JFrame {
 						errorString.append(method.toGuiString()).append("\nKeine Fehler aufgetreten\n");
 					}
 				}
-
 			}
 		}
-
 		if (!_stopTesting) {
 			_errorTextArea.append(errorString.toString());
 		}
-		
-
 	}
 
 	private void buildTree(TestSet testSetToPerform) {
@@ -213,7 +225,7 @@ public class GUI extends JFrame {
 		JScrollPane scrollJTree = new JScrollPane(_jTree);
 		_treePanel.add(scrollJTree, BorderLayout.CENTER);
 		
-		//TODO ->
+		
 	}
 
 	private void addPanelsToContentPane() {
@@ -223,7 +235,7 @@ public class GUI extends JFrame {
 
 		this.setLayout(new BorderLayout());
 		this.add(mainPanel, BorderLayout.CENTER);
-		this.add(_buttonPanel, BorderLayout.SOUTH);
+		this.add(_buttonPanel, BorderLayout.NORTH);
 		
 
 	}
@@ -259,6 +271,11 @@ public class GUI extends JFrame {
 		testClassesList.add(SuccessfulTests.class);
 
 		TestSet testSetToPerform = TestSet.getTestSet(testClassesList);
-		new GUI("Programmieraufgabe", testSetToPerform);
+		try {
+			new GUI("Programmieraufgabe", testSetToPerform);
+		} catch (UserMsgException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

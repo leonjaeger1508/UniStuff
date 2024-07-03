@@ -31,15 +31,15 @@ public class TestSet {
 			
 			for(TestMethod method: classToTest.getTestMethods()) {
 				if(method.getTestStatus() == TestStatus.Failed) {
-					classPassed = false;
+					//classPassed = false;
 				}
 			}
 			
 			if(!classPassed) {
-				classToTest.setStatus(TestStatus.Failed);
+				//classToTest.setStatus(TestStatus.Failed);
 			}
 			if(classPassed) {
-				classToTest.setStatus(TestStatus.Passed);
+				//classToTest.setStatus(TestStatus.Passed);
 			}
 			
 			lstClasses.add(classToTest);
@@ -68,11 +68,11 @@ public class TestSet {
 			try {
 				Object instance = clazz.getDeclaredConstructor().newInstance();
 				method.invoke(instance);
-				objToTest.setStatus(TestStatus.Passed);
+				//objToTest.setStatus(TestStatus.Passed);
 				
 			} catch (Throwable th) {
-				objToTest.setStatus(TestStatus.Failed);
-				objToTest.setFehlermeldung(th.getCause().getMessage());
+				//objToTest.setStatus(TestStatus.Failed);
+				//objToTest.setFehlermeldung(th.getCause().getMessage());
 			}
 			
 			lstMethods.add(objToTest);

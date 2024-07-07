@@ -33,11 +33,11 @@ public class TestClass extends GuifiableObject {
 	@Override
 	public String toString() {
 		StringBuilder toReturn = new StringBuilder();
-		toReturn.append("Klassenname:\n" + this.toGuiString() + "\nStatus der Klasse:\n" + _status + "\n\nMethoden der Klasse:\n" );
+		toReturn.append("Klassenname:\n" + this.toGuiString() + "\nStatus der Klasse:\n" + _status + "\n\nMethode(n) der Klasse:\n" );
 		
 		for(TestMethod method : _lstMethods) {
 			if(method != _lstMethods.get(0)) {
-				toReturn.append(",\n");
+				toReturn.append("\n");
 			}
 			toReturn.append(method.toGuiString());
 			

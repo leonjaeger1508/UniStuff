@@ -27,7 +27,7 @@ public class TestRunner {
                     }
                 }
             }
-
+            
             boolean classPassed = true;
             for (TestMethod method : testClass.getTestMethods()) {
                 if (method.getTestStatus() == TestStatus.Undefined) {

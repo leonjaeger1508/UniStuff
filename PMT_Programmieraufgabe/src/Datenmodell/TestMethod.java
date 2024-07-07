@@ -24,7 +24,7 @@ public class TestMethod extends GuifiableObject{
 	public String getName() {
 		return _name;
 	}
-	
+
 	public String getFehlermeldung() {
 		return _fehlermeldung;
 	}
@@ -37,6 +37,7 @@ public class TestMethod extends GuifiableObject{
 	public String printFehlermeldung() {
 		return super.toGuiString() +"\n\nStatus:\n" + this._status.toGuiString() +"\nAufgetretene Fehler in der Methode:\n" + getFehlermeldung();
 	}
+	
 	@Override
 	public String toGuiString() {
 		return "Methode:" + super.toGuiString() + ", Status der Methode: " + this._status.toGuiString();

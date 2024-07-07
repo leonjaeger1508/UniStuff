@@ -18,10 +18,6 @@ public class DBExtractor {
 		_passwordString = password;
 		_urlString = url;
 		_usernameString = username;
-		
-		//password = "LeonsDB"
-		//User : "Leon"
-		//connection : "jdbc:mysql://sql.razeserver.net:3306/UniDB"
 	}
 	
 	public void writeTODB(TestSet testSet, Timestamp startTimestamp, Timestamp endTimestamp) {
@@ -90,7 +86,6 @@ public class DBExtractor {
 	        
 	        
 	    }
-	    
 	    
 	    try(Connection con = DriverManager.getConnection(_urlString, _usernameString, _passwordString)) {
 	        

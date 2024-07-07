@@ -8,7 +8,6 @@ import java.awt.Image;
 
 public class FailingTests {
 
-
     @Test
     public void testAdditionFail() {
         int sum = 2 + 2;

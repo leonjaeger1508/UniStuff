@@ -55,11 +55,10 @@ public class TestSet {
 		for(Method method : methods) {
 			transferToTestMethodObj(clazz, lstMethods, method);
 		}
-		
 		return lstMethods;
 		
 	}
-
+	
 	private static void transferToTestMethodObj(Class<?> clazz, List<TestMethod> lstMethods, Method method) {
 		if(method.isAnnotationPresent(Test.class)) {
 			
@@ -74,11 +73,9 @@ public class TestSet {
 				//objToTest.setStatus(TestStatus.Failed);
 				//objToTest.setFehlermeldung(th.getCause().getMessage());
 			}
-			
 			lstMethods.add(objToTest);
 			
 		}
-		
 		if(method.isAnnotationPresent(Ignore.class)) {
 			TestMethod objToIgnore = new TestMethod(method.getName(), TestStatus.Ignored, "");
 			lstMethods.add(objToIgnore);

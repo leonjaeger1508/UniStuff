@@ -57,7 +57,6 @@ public class SimpleFrameworkDeAndSerializer
 			                    , SimpleFrameworkDeAndSerializer.class, "Error deleting file [{0}]", strFileNamePath);
 		}
 	}
-		
 	/**
 	 * Starts serialization to a file (writing to a file).
 	 *

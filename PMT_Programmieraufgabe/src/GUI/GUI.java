@@ -178,7 +178,7 @@ public class GUI extends JFrame {
 				for (TestClass cl : _testSet.getTestClasses()) {
 					updateNodes();
 					if (!_stopTesting) {
-						_endTimestamp = testRunner.runTests2(cl);
+						_endTimestamp = testRunner.runTests(cl);
 						updateProgressBar();
 					}
 				}

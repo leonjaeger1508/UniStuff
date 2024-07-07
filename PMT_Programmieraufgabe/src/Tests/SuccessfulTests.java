@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 
 public class SuccessfulTests {
 
-	
     @Test
     public void testAddition() {
         int sum = 2 + 3;
@@ -14,7 +13,7 @@ public class SuccessfulTests {
 
     @Test
     public void testStringNotNull() {
-        String str = "JUnit";
+        String str = "JUnitTest";
         assertNotNull(str);
     }
 

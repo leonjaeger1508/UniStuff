@@ -1,8 +1,11 @@
 package GUI;
 
 
+
 import javax.swing.tree.*;
 import java.util.*;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import turban.utils.*;
@@ -316,10 +319,63 @@ public class FlexibleTreeNode<T extends IGuifiable> extends DefaultMutableTreeNo
 	 * @return the treenodes meeting the condition
 	 */
 	public List<FlexibleTreeNode<T>> getAllNodesWithCondition(Predicate<FlexibleTreeNode<T>> cond) {
-		// ToDo: Probieren Sie das mal selbst noch:
-		throw new UnsupportedOperationException();
+		List<FlexibleTreeNode<T>> lstToReturn = new ArrayList<FlexibleTreeNode<T>>();
+		getAllNodesWithCondition_recursive(cond, lstToReturn, this);
+		return lstToReturn;
+	}
+	
+	
+
+	private void getAllNodesWithCondition_recursive(Predicate<FlexibleTreeNode<T>> cond,
+			List<FlexibleTreeNode<T>> lstToReturn, FlexibleTreeNode<T> flexibleTreeNode) {
+
+		if(cond.test(flexibleTreeNode)) {
+			lstToReturn.add(flexibleTreeNode);
+		}
+		for(int i = 0; i < flexibleTreeNode.getChildCount(); i++) {
+			FlexibleTreeNode<T> currentNode = (FlexibleTreeNode<T>) flexibleTreeNode.getChildAt(i);
+			getAllNodesWithCondition_recursive(cond, lstToReturn, currentNode);
+		}
 	}
 
+	public void forEach(BiConsumer<FlexibleTreeNode<T>, T> biConsumer) {
+		forEach_recursive(biConsumer, this);
+		
+		/*	oder so:
+		 	List<FlexibleTreeNode<T>> nodes = this.getAllTreeNodesAsListMoreEfficient();
+        	for (FlexibleTreeNode<T> node : nodes) {
+            biConsumer.accept(node, node.getUserObject());
+            }
+		 */
+	}
+	
+	public void forEach_recursive(BiConsumer<FlexibleTreeNode<T>, T> biConsumer, FlexibleTreeNode<T> node) {
+		
+		biConsumer.accept(node, node.getUserObject());
+
+		for(int i = 0; i < node.getChildCount(); i++) {
+			FlexibleTreeNode<T> currentNode = (FlexibleTreeNode<T>) node.getChildAt(i);
+			forEach_recursive(biConsumer, currentNode);
+		}
+	}
+	
+	public void forEachWithCondition(Predicate<FlexibleTreeNode<T>> condition, BiConsumer<FlexibleTreeNode<T>, T> biConsumer) {
+		forEachWithCondition_Recursive(condition,biConsumer,this);
+	}
+
+	private void forEachWithCondition_Recursive(Predicate<FlexibleTreeNode<T>> condition,
+			BiConsumer<FlexibleTreeNode<T>, T> biConsumer, FlexibleTreeNode<T> flexibleTreeNode) {
+		
+		if(condition.test(flexibleTreeNode)) {
+			biConsumer.accept(flexibleTreeNode, flexibleTreeNode.getUserObject());
+		}
+		
+		for(int i = 0; i < flexibleTreeNode.getChildCount(); i++) {
+			FlexibleTreeNode<T> currentNode = (FlexibleTreeNode<T>) flexibleTreeNode.getChildAt(i);
+			forEachWithCondition_Recursive(condition, biConsumer, currentNode);
+		}
+		
+	}
 }
 
 //**** Verwendungsbeispiel für FlexibleTreeNode:

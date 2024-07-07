@@ -9,6 +9,8 @@ import java.util.List;
 import javax.crypto.AEADBadTagException;
 import javax.management.loading.PrivateClassLoader;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
@@ -25,6 +27,7 @@ import org.mariadb.jdbc.internal.com.read.resultset.rowprotocol.TextRowProtocol;
 
 import Datenmodell.DBExtractor;
 import Datenmodell.GuifiableObject;
+import Datenmodell.SimpleFrameworkDeAndSerializer;
 import Datenmodell.TestClass;
 import Datenmodell.TestMethod;
 import Datenmodell.TestRunner;
@@ -69,7 +72,7 @@ public class GUI extends JFrame {
 		_textPanel.add(scrollErrorTextArea, BorderLayout.CENTER);
 
 		buildTree(testSetToPerform);
-
+		
 		JButton startButton = new JButton("Start");
 		startButton.addActionListener(ae -> {
 			_errorTextArea.setText("");
@@ -80,16 +83,10 @@ public class GUI extends JFrame {
 			stop();
 			
 		});
-		_buttonPanel.add(startButton);
 
-	
-		
 		_progressBar = new JProgressBar(0, _testSet.getTestClasses().size());
 		_progressBar.setStringPainted(true);
-		_buttonPanel.add(_progressBar);
 
-		_buttonPanel.add(stopButton);
-		
 		JButton toDBButton = new JButton("In Datenbank laden");
 		toDBButton.addActionListener( ae ->{
 			try {
@@ -98,31 +95,51 @@ public class GUI extends JFrame {
 				
 			}
 		});
-		
 		JButton toXMLButton = new JButton("In XML-Datei speichern");
 		toXMLButton.addActionListener(ae ->{
 			try {
 				saveToXML();
 			} catch (UserMsgException e) {}
 		});
-		
+		_buttonPanel.add(startButton);
+		_buttonPanel.add(_progressBar);
+		_buttonPanel.add(stopButton);
 		_buttonPanel.add(toDBButton);
+		_buttonPanel.add(new JPanel());
+		_buttonPanel.add(toXMLButton);
+
 		addPanelsToContentPane();
 
 		setSize(700, 700);
+		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
+
 	}
 
 	private void saveToXML() throws UserMsgException {
-		
+		if(_testRan) {
+			JFileChooser chooser = new JFileChooser();
+	        int returnVal = chooser.showSaveDialog(null);
+	        
+	        if (returnVal == JFileChooser.APPROVE_OPTION) {
+	            String filePath = chooser.getSelectedFile().getAbsolutePath();
+	            SimpleFrameworkDeAndSerializer.serializeToFile(_testSet, filePath);
+	        }
+		}else {
+			throw new UserMsgException("Keine Tests wurden durchgeführt.","Es wurden keine Tests durchgeführt, deswegen wird auch keine XML-Datei dazu erstellt! Führen Sie die Tests durch, dann können Sie die Ergebnisse in einer XML-Datei speichern!" ,"");
+		}
 		
 	}
 
 	private void saveToDB() throws UserMsgException {
 		if(_testRan) {
 			DBExtractor extractor = new DBExtractor("jdbc:mysql://sql.razeserver.net:3306/UniDB", "Leon", "LeonsDB");
-			extractor.writeTODB(_testSet, _startTimestamp, _endTimestamp);
+			try {
+				extractor.writeTODB(_testSet, _startTimestamp, _endTimestamp);
+			} catch (Throwable e) {
+				throw new UserMsgException("Fehler beim Hochladen in der Datenbank","Es kam zu einem Fehler beim Hochladen in die Datenbank. Überprüfe den Username, das Passwort und die Adresse deiner mariaDB!", "");
+			}
 		}else {
 			throw new UserMsgException("Wurde nicht in Datenbank gespeichert.","Es wurden keine Tests durchgeführt, deswegen wurde nichts in der Datenbank gespeichert. Sie müssen die Tests durchführen, um sie zu speichern" ,"");
 		}
@@ -235,14 +252,13 @@ public class GUI extends JFrame {
 
 		this.setLayout(new BorderLayout());
 		this.add(mainPanel, BorderLayout.CENTER);
-		this.add(_buttonPanel, BorderLayout.NORTH);
+		this.add(_buttonPanel, BorderLayout.SOUTH);
 		
 
 	}
 
 	private void updateNodes() {
-		FlexibleTreeNode<GuifiableObject> tnSelected = (FlexibleTreeNode<GuifiableObject>) _jTree
-				.getLastSelectedPathComponent();
+		FlexibleTreeNode<GuifiableObject> tnSelected = (FlexibleTreeNode<GuifiableObject>) _jTree.getLastSelectedPathComponent();
 		if (tnSelected == null) {
 			return;
 		} else {
@@ -260,6 +276,8 @@ public class GUI extends JFrame {
 
 		}
 	}
+	
+	
 
 	public static void main(String[] args) {
 
@@ -274,7 +292,6 @@ public class GUI extends JFrame {
 		try {
 			new GUI("Programmieraufgabe", testSetToPerform);
 		} catch (UserMsgException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

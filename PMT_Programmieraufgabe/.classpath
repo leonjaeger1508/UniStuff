@@ -8,6 +8,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="C:/Users/leonj/iCloudDrive/Desktop/Wirtschaftsinformatik/2.Semester/PM/Praktikum/Uebungsblatt01/turban.utils.jar.v0_2/turban.utils.jar"/>
-	<classpathentry kind="lib" path="C:/Users/leonj/iCloudDrive/Desktop/mariadb-java-client-2.5.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/leonj/iCloudDrive/Desktop/Wirtschaftsinformatik/2.Semester/PM/Praktikum/mariadb-java-client-2.5.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/leonj/iCloudDrive/Desktop/Wirtschaftsinformatik/2.Semester/PM/Praktikum/simple-xml-2.7.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
